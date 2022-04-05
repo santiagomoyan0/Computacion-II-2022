@@ -19,3 +19,22 @@ for (op,ar) in opt:
 
 process = sp.Popen([command], stdout=output_file, stderr=sp.PIPE, shell=True, universal_newlines=True)
 error = process.communicate()[1]
+
+if not error:
+    date = dt.datetime.now()
+    for_write = f"{date}: the command: {command}, it ran correctly"
+    file_write = open(log_file, "a")
+    file_write.write(for_write)
+    file_write.write("\n")
+    file_write.close() 
+    
+else:
+    date = dt.datetime.now()
+    for_write = f"{date}: >> {error}"
+    file_write = open(log_file, "a")
+    file_write.write(for_write)
+    file_write.write("\n")
+    file_write.close()
+    
+output_file.writelines("\n")
+output_file.close()
